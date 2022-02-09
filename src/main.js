@@ -1,5 +1,8 @@
 // Create variables targetting the relevant DOM elements here 👇
-
+var title = document.querySelector('h2');
+var desc1 = document.querySelector('.tagline-1');
+var desc2 = document.querySelector('.tagline-2');
+var image = document.querySelector('.cover-image');
 
 // We've provided a few variables below
 var savedCovers = [
@@ -17,3 +20,22 @@ var currentCover;
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
+
+title.innerText = titles[getRandomIndex(titles)]
+desc1.innerText = descriptors[getRandomIndex(descriptors)]
+desc2.innerText = descriptors[getRandomIndex(descriptors)]
+image.src = covers[getRandomIndex(covers)]
+
+
+// **NOTES**
+// src = allows access to image
+// var title = document.querySelector('h2')
+// title.innerText = getRandomIndex(title)
+// => changes title into an array position
+
+//var cover = document.querySelector(.tagline-1)
+//var cover = document.querySelector(.tagline-2)
+
+
+//use js to access html elements from lines 19-23
+//randomize all: title, 2 taglines, and image
