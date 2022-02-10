@@ -5,9 +5,13 @@ var desc2 = document.querySelector('.tagline-2');
 var image = document.querySelector('.cover-image');
 var priceTag = document.querySelector('.price-tag');
 var tagLine = document.querySelector('.tagline');
+var mainPage = document.querySelector('.main-cover');
+var formView = document.querySelector('.form-view');
+
 var btnRandomCover = document.querySelector('.random-cover-button');
-var btnMakeCover = document.querySelector('.make-new-button')
-var homePage =[title, desc1, desc2, image, priceTag, tagLine];
+var btnMakeCover = document.querySelector('.make-new-button');
+var btnHome = document.querySelector('.home-button');
+var btnSave = document.querySelector('.save-cover-button');
 // We've provided a few variables below
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
@@ -15,12 +19,18 @@ var savedCovers = [
 var currentCover;
 
 // Add your event listeners here 👇
+window.addEventListener('load', makeCover);
+
 btnRandomCover.addEventListener('click', function() {
   makeCover();
 });
 
 btnMakeCover.addEventListener('click', function() {
-  hide(homePage);
+  show(formView);
+  show(btnHome);
+  hide(mainPage);
+  hide(btnRandomCover);
+  hide(btnSave)
 });
 
 // Create your event handlers and other functions here 👇
@@ -31,21 +41,21 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-image.src = covers[getRandomIndex(covers)]
-title.innerText = titles[getRandomIndex(titles)]
-desc1.innerText = descriptors[getRandomIndex(descriptors)]
-desc2.innerText = descriptors[getRandomIndex(descriptors)]
-
 function makeCover() {
   currentCover = new Cover (
     image.src = covers[getRandomIndex(covers)],
     title.innerText = titles[getRandomIndex(titles)],
     desc1.innerText = descriptors[getRandomIndex(descriptors)],
     desc2.innerText = descriptors[getRandomIndex(descriptors)])
-  }
-
-function hide(elements) {
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('hidden');
-  }
 }
+
+function show(element) {
+  element.classList.remove('hidden')
+}
+function hide(element) {
+    element.classList.add('hidden');
+}
+
+/*
+
+*/
