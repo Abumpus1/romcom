@@ -29,26 +29,21 @@ var savedCovers = [
 ];
 var currentCover;
 
+
 // savedView.classList.add('mini-cover')
 
 
-/*
-- display saved covers in array
-    [x] add element under view-saved-covers using innerHTML
-    [x] make for-loop
-- when saving cover, push current cover to array
-- no duplicate covers
-  [] conditional
-*/
-
 // Add your event listeners here 👇
-window.addEventListener('load', makeCover);
+window.addEventListener('load', function() {
+makeCover();
+displayBooks();
+});
 
 homeBtn.addEventListener('click', goToHome);
 
 saveBtn.addEventListener('click', function() {
-  saveBook(currentCover)
-  displayBooks()
+  saveBook(currentCover);
+  displayBooks();
 });
 
 savedViewBtn.addEventListener('click', goToSavedView);
@@ -59,9 +54,9 @@ newRandomCoverBtn.addEventListener('click', makeCover);
 
 makeMyBookBtn.addEventListener('click', function() {
   event.preventDefault();
-  createBook(coverInput, titleInput, desc1Input, desc2Input)
-  addBookProperties(coverInput, titleInput, desc1Input, desc2Input)
-  goToHome()
+  createBook(coverInput, titleInput, desc1Input, desc2Input);
+  addBookProperties(coverInput, titleInput, desc1Input, desc2Input);
+  goToHome();
 });
 
 
@@ -107,7 +102,7 @@ function goToFormView() {
   hide(mainPage);
   hide(newRandomCoverBtn);
   hide(saveBtn);
-  hide(savedView)
+  hide(savedView);
 }
 
 function goToSavedView() {
@@ -119,13 +114,12 @@ function goToSavedView() {
   hide(newRandomCoverBtn);
 }
 
-
 function createBook(input1, input2, input3, input4) {
   currentCover = new Cover(
   image.src = input1.value,
   title.innerText = input2.value,
   desc1.innerText = input3.value,
-  desc2.innerText = input4.value)
+  desc2.innerText = input4.value);
 }
 
 function displayBooks() {
@@ -138,32 +132,15 @@ function displayBooks() {
     <h3 class='tagline'>A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
     <img class="price-tag" src="./assets/price.png">
     <img class="overlay" src="./assets/overlay.png">
-    </section>`
+    </section>`;
   }
 }
 
 function saveBook(book) {
-  savedCovers.push(book)
+  if (!savedCovers.includes(book)) {
+    savedCovers.push(book);
+  }
 }
-  // if book is not in array => push
-  // if it is, do nothing
-  // for each book, if book is not displayed => display
-  // if it is, do nothing
-
-// **OG**
-// function saveBook(book) {
-//   savedCovers.push(book)
-//   for (var i = 0; i < savedCovers.length; i++) {
-//     savedCoversView.innerHTML += `
-//     <section class='mini-cover' id=${savedCovers[i].id}>
-//     <img class='cover-image' src=${savedCovers[i].cover}>
-//     <h2 class='cover-title'>${savedCovers[i].title}</h2>
-//     <h3 class='tagline'>A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
-//     <img class="price-tag" src="./assets/price.png">
-//     <img class="overlay" src="./assets/overlay.png">
-//     </section>`
-//   }
-//  }
 
 function show(element) {
   element.classList.remove('hidden');
