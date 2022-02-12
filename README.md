@@ -1,7 +1,7 @@
 # RomCom
 
 ## Contributors
-Alex Bumpus
+Alex Bumpus,
 Nicholas Ao
 
 ## Technologies used
