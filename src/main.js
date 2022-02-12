@@ -6,10 +6,16 @@ var image = document.querySelector('.cover-image');
 var priceTag = document.querySelector('.price-tag');
 var tagLine = document.querySelector('.tagline');
 
+var coverInput = document.querySelector('#cover');
+var titleInput = document.querySelector('#title');
+var desc1Input = document.querySelector('#descriptor1');
+var desc2Input = document.querySelector('#descriptor2');
+
 var mainPage = document.querySelector('.main-cover');
 var formView = document.querySelector('.form-view');
 var savedView = document.querySelector('.saved-covers-section');
 
+var btnMakeBook = document.querySelector('.create-new-book-button');
 var btnRandomCover = document.querySelector('.random-cover-button');
 var btnMakeCover = document.querySelector('.make-new-button');
 var btnHome = document.querySelector('.home-button');
@@ -25,35 +31,21 @@ var currentCover;
 // Add your event listeners here 👇
 window.addEventListener('load', makeCover);
 
-btnRandomCover.addEventListener('click', function() {
-  makeCover();
+btnHome.addEventListener('click', goToHome);
+
+btnShowSaved.addEventListener('click', goToSavedView);
+
+btnMakeCover.addEventListener('click', goToFormView);
+
+btnRandomCover.addEventListener('click', makeCover);
+
+btnMakeBook.addEventListener('click', function() {
+  event.preventDefault();
+  createBook(coverInput, titleInput, desc1Input, desc2Input)
+  addBookProperties(coverInput, titleInput, desc1Input, desc2Input)
+  goToHome()
 });
 
-btnMakeCover.addEventListener('click', function() {
-  show(formView);
-  show(btnHome);
-  hide(mainPage);
-  hide(btnRandomCover);
-  hide(btnSave);
-});
-
-btnShowSaved.addEventListener('click', function() {
-  show(savedView);
-  show(btnHome);
-  hide(mainPage);
-  hide(formView);
-  hide(btnSave);
-  hide(btnRandomCover);
-});
-
-btnHome.addEventListener('click', function() {
-  show(mainPage);
-  show(btnRandomCover);
-  show(btnSave);
-  hide(formView);
-  hide(btnHome);
-  hide(savedView);
-});
 
 // Create your event handlers and other functions here 👇
 
@@ -73,6 +65,47 @@ function makeCover() {
     title.innerText,
     desc1.innerText,
     desc2.innerText);
+}
+
+function addBookProperties(input1, input2, input3, input4) {
+  covers.push(input1.value);
+  titles.push(input2.value);
+  descriptors.push(input3.value);
+  descriptors.push(input4.value);
+}
+
+function goToHome() {
+  show(mainPage);
+  show(btnRandomCover);
+  show(btnSave);
+  hide(formView);
+  hide(btnHome);
+  hide(savedView);
+}
+
+function goToFormView() {
+  show(formView);
+  show(btnHome);
+  hide(mainPage);
+  hide(btnRandomCover);
+  hide(btnSave);
+}
+
+function goToSavedView() {
+  show(savedView);
+  show(btnHome);
+  hide(mainPage);
+  hide(formView);
+  hide(btnSave);
+  hide(btnRandomCover);
+}
+
+function createBook(input1, input2, input3, input4) {
+  var book = new Cover(
+  image.src = input1.value,
+  title.innerText = input2.value,
+  desc1.innerText = input3.value,
+  desc2.innerText = input4.value)
 }
 
 function show(element) {
