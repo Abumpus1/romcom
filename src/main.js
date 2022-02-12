@@ -1,5 +1,5 @@
 // Create variables targetting the relevant DOM elements here 👇
-var title = document.querySelector('h2');
+var title = document.querySelector('.cover-title');
 var desc1 = document.querySelector('.tagline-1');
 var desc2 = document.querySelector('.tagline-2');
 var image = document.querySelector('.cover-image');
@@ -64,11 +64,15 @@ function getRandomIndex(array) {
 }
 
 function makeCover() {
+  image.src = covers[getRandomIndex(covers)];
+  title.innerText = titles[getRandomIndex(titles)];
+  desc1.innerText = descriptors[getRandomIndex(descriptors)];
+  desc2.innerText = descriptors[getRandomIndex(descriptors)];
   currentCover = new Cover (
-    image.src = covers[getRandomIndex(covers)],
-    title.innerText = titles[getRandomIndex(titles)],
-    desc1.innerText = descriptors[getRandomIndex(descriptors)],
-    desc2.innerText = descriptors[getRandomIndex(descriptors)]);
+    image.src,
+    title.innerText,
+    desc1.innerText,
+    desc2.innerText);
 }
 
 function show(element) {
