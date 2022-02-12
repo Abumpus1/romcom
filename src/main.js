@@ -13,14 +13,15 @@ var desc2Input = document.querySelector('#descriptor2');
 
 var mainPage = document.querySelector('.main-cover');
 var formView = document.querySelector('.form-view');
-var savedView = document.querySelector('.saved-covers-section');
+var savedCoversView = document.querySelector('.saved-covers-section');
+var savedView = document.querySelector('.saved-view');
 
-var btnMakeBook = document.querySelector('.create-new-book-button');
-var btnRandomCover = document.querySelector('.random-cover-button');
-var btnMakeCover = document.querySelector('.make-new-button');
-var btnHome = document.querySelector('.home-button');
-var btnSave = document.querySelector('.save-cover-button');
-var btnShowSaved = document.querySelector('.view-saved-button');
+var makeMyBookBtn = document.querySelector('.create-new-book-button');
+var newRandomCoverBtn = document.querySelector('.random-cover-button');
+var formViewBtn = document.querySelector('.make-new-button');
+var homeBtn = document.querySelector('.home-button');
+var saveBtn = document.querySelector('.save-cover-button');
+var savedViewBtn = document.querySelector('.view-saved-button');
 
 // We've provided a few variables below
 var savedCovers = [
@@ -28,22 +29,34 @@ var savedCovers = [
 ];
 var currentCover;
 
+
+// savedView.classList.add('mini-cover')
+
+
 // Add your event listeners here 👇
-window.addEventListener('load', makeCover);
+window.addEventListener('load', function() {
+makeCover();
+displayBooks();
+});
 
-btnHome.addEventListener('click', goToHome);
+homeBtn.addEventListener('click', goToHome);
 
-btnShowSaved.addEventListener('click', goToSavedView);
+saveBtn.addEventListener('click', function() {
+  saveBook(currentCover);
+  displayBooks();
+});
 
-btnMakeCover.addEventListener('click', goToFormView);
+savedViewBtn.addEventListener('click', goToSavedView);
 
-btnRandomCover.addEventListener('click', makeCover);
+formViewBtn.addEventListener('click', goToFormView);
 
-btnMakeBook.addEventListener('click', function() {
+newRandomCoverBtn.addEventListener('click', makeCover);
+
+makeMyBookBtn.addEventListener('click', function() {
   event.preventDefault();
-  createBook(coverInput, titleInput, desc1Input, desc2Input)
-  addBookProperties(coverInput, titleInput, desc1Input, desc2Input)
-  goToHome()
+  createBook(coverInput, titleInput, desc1Input, desc2Input);
+  addBookProperties(coverInput, titleInput, desc1Input, desc2Input);
+  goToHome();
 });
 
 
@@ -76,36 +89,57 @@ function addBookProperties(input1, input2, input3, input4) {
 
 function goToHome() {
   show(mainPage);
-  show(btnRandomCover);
-  show(btnSave);
+  show(newRandomCoverBtn);
+  show(saveBtn);
   hide(formView);
-  hide(btnHome);
+  hide(homeBtn);
   hide(savedView);
 }
 
 function goToFormView() {
   show(formView);
-  show(btnHome);
+  show(homeBtn);
   hide(mainPage);
-  hide(btnRandomCover);
-  hide(btnSave);
+  hide(newRandomCoverBtn);
+  hide(saveBtn);
+  hide(savedView);
 }
 
 function goToSavedView() {
   show(savedView);
-  show(btnHome);
+  show(homeBtn);
   hide(mainPage);
   hide(formView);
-  hide(btnSave);
-  hide(btnRandomCover);
+  hide(saveBtn);
+  hide(newRandomCoverBtn);
 }
 
 function createBook(input1, input2, input3, input4) {
-  var book = new Cover(
+  currentCover = new Cover(
   image.src = input1.value,
   title.innerText = input2.value,
   desc1.innerText = input3.value,
-  desc2.innerText = input4.value)
+  desc2.innerText = input4.value);
+}
+
+function displayBooks() {
+  savedCoversView.innerHTML = ''
+  for (var i = 0; i < savedCovers.length; i++) {
+    savedCoversView.innerHTML += `
+    <section class='mini-cover' id=${savedCovers[i].id}>
+    <img class='cover-image' src=${savedCovers[i].cover}>
+    <h2 class='cover-title'>${savedCovers[i].title}</h2>
+    <h3 class='tagline'>A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+    <img class="price-tag" src="./assets/price.png">
+    <img class="overlay" src="./assets/overlay.png">
+    </section>`;
+  }
+}
+
+function saveBook(book) {
+  if (!savedCovers.includes(book)) {
+    savedCovers.push(book);
+  }
 }
 
 function show(element) {
